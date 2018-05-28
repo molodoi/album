@@ -18,6 +18,14 @@ Route::get('/', 'HomeController@index')->name('home');
 // Le groupe nous servira plus tard quand on ajoutera d’autres routes.
 Route::middleware('admin')->group(function () {
     Route::resource('category', 'CategoryController', [
-        'except' => 'show'
+        'except' => 'show',
     ]);
 });
+
+Route::middleware('auth')->group(function () {
+    Route::resource('image', 'ImageController', [
+        'only' => ['create', 'store', 'destroy'],
+    ]);
+});
+
+Route::name('category')->get('category/{slug}', 'ImageController@category');
