@@ -4,7 +4,9 @@
 
     <main class="container-fluid">
         <h1>
-            {{ $countOrphans }} {{ trans_choice(__('image orpheline|images orphelines'), $countOrphans) }}
+            {{-- gestion du pluriel au niveau de la vue --}}
+            {{ $countOrphans }} 
+            {{ trans_choice(__('image orpheline|images orphelines'), $countOrphans) }}
             @if($countOrphans)
                 <a class="btn btn-danger pull-right" href="{{ route('maintenance.destroy') }}" role="button">@lang('Supprimer')</a>
             @endif

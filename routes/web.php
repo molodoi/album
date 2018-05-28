@@ -29,6 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('image', 'ImageController', [
         'only' => ['create', 'store', 'destroy'],
     ]);
+
+    Route::resource('profile', 'UserController', [
+        'only' => ['edit', 'update'],
+        'parameters' => ['profile' => 'user'],
+    ]);
 });
 
 Route::name('category')->get('category/{slug}', 'ImageController@category');
