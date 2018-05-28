@@ -17,4 +17,19 @@ class HomeController extends Controller
         $images = Image::paginate(8);
         return view('home', compact('images'));
     }
+
+    /**
+     * Change locale.
+     *
+     * @param  string  $locale
+     * @return \Illuminate\Http\Response
+     */
+    public function language(String $locale)
+    {
+        $locale = in_array($locale, config('app.locales')) ? $locale : config('app.fallback_locale');
+
+        session(['locale' => $locale]);
+
+        return back();
+    }
 }

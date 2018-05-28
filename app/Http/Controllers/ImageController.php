@@ -95,4 +95,20 @@ class ImageController extends Controller
 
         return back();
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Image
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Image $image)
+    {
+        $this->authorize('delete', $image);
+
+        $image->category_id = $request->category_id;
+        $image->save();
+        return redirect()->back()->with('updated', __('La catégorie a bien été changée !'));
+    }
 }

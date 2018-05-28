@@ -35,4 +35,9 @@ class ImagePolicy
     {
         return $user->id === $image->user_id;
     }
+
+    public function manage(User $user, Image $image)
+    {
+        return $user->id === $image->user_id;
+    }
 }
