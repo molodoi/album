@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Models\Category;
+use App\Models\User;
 use App\Repositories\ImageRepository;
 
 class ImageController extends Controller
@@ -64,5 +65,34 @@ class ImageController extends Controller
         $images = $this->repository->getImagesForCategory($slug);
 
         return view('home', compact('category', 'images'));
+    }
+
+    /**
+     * Display a listing of the images for the specified user.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function user(User $user)
+    {
+        $images = $this->repository->getImagesForUser($user->id);
+
+        return view('home', compact('user', 'images'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Image  $image
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Image $image)
+    {
+        // Maintenant on est sûrs qu’une petit malin ne pourra pas supprimer une photo qui ne lui appartient pas !
+        $this->authorize('delete', $image);
+
+        $image->delete();
+
+        return back();
     }
 }

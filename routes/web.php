@@ -20,6 +20,9 @@ Route::middleware('admin')->group(function () {
     Route::resource('category', 'CategoryController', [
         'except' => 'show',
     ]);
+
+    Route::name('maintenance.index')->get('maintenance', 'AdminController@index');
+    Route::name('maintenance.destroy')->delete('maintenance', 'AdminController@destroy');
 });
 
 Route::middleware('auth')->group(function () {
@@ -29,3 +32,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::name('category')->get('category/{slug}', 'ImageController@category');
+
+Route::name('user')->get('user/{user}', 'ImageController@user');
